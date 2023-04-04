@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <fstream>
 #include <unistd.h>
-
+#include <sstream>
 
 using namespace std;
 using namespace filesystem;
@@ -21,7 +21,7 @@ sched_stat get_sched_stat(int pid);
 int main() {
     vector<proc_handler> handler = get_proc_handler();
     ofstream out;
-    out.open("/home/vattghern/pids-from-system.txt");
+    out.open("/archive/repositories/lstu/os-labs-linux/lab-1/pids-from-system.txt");
     if(out.is_open()) {
         for (auto it: handler) {
             out << it.pid << '\n';
@@ -29,7 +29,7 @@ int main() {
         out.close();
     }
 
-    out.open("/home/vattghern/sbin-pids-from-system.txt");
+    out.open("/archive/repositories/lstu/os-labs-linux/lab-1/sbin-pids-from-system.txt");
     if(out.is_open()) {
         for (auto it: handler) {
             if(it.is_sbin)
@@ -38,13 +38,13 @@ int main() {
         out.close();
     }
 
-    out.open("/home/vattghern/pid-cmd-line.txt");
+    out.open("/archive/repositories/lstu/os-labs-linux/lab-1/pid-cmd-line.txt");
     if (out.is_open()){
         for (const auto& it : handler) out << it.pid << ":" << (it.cmdline.size() == 0 ? "none" : it.cmdline) << '\n';
         out.close();
     }
 
-    out.open("/home/vattghern/abs-shared-resident.txt");
+    out.open("/archive/repositories/lstu/os-labs-linux/lab-1/abs-shared-resident.txt");
     if (out.is_open()){
         for(const auto& it: handler)
             out << it.pid << ":" << std::abs(it._statm.resident - it._statm.shared ) << "\n\tstatm:\n" << it._statm;
@@ -52,7 +52,7 @@ int main() {
     }
 
     sort(handler.begin(), handler.end());
-    out.open("/home/vattghern/resiter-proc.txt");
+    out.open("/archive/repositories/lstu/os-labs-linux/lab-1/resiter-proc.txt");
     if(out.is_open()){
         for(const auto &it : handler)
             out << it;
@@ -107,9 +107,9 @@ int get_ppid(int pid){
 
 avg_atom get_avg_atom(int pid){
     avg_atom res={0, 0};
-    string cmd = "cat /proc/" + to_string(pid) + "/sched | grep  -e se.sum -e nr_sw | grep -Eo '[0-9]+\\.?+[0-9]{1,100}' >> /home/vattghern/tmp-grep";
+    string cmd = "cat /proc/" + to_string(pid) + "/sched | grep  -e se.sum -e nr_sw | grep -Eo '[0-9]+\\.?+[0-9]{1,100}' >> /archive/repositories/lstu/os-labs-linux/lab-1/tmp-grep";
     execl(cmd.c_str(), nullptr);
-    ifstream tmp("/home/vattghern/tmp-grep");
+    ifstream tmp("/archive/repositories/lstu/os-labs-linux/lab-1/tmp-grep");
     if (tmp.is_open()){
         tmp >> res;
         tmp.close();
@@ -141,10 +141,14 @@ vector<proc_handler> get_proc_handler(){
 }
 
 sched_stat get_sched_stat(int pid) {
-    ifstream stat("/proc/" + to_string(pid) +"/stat");
+    ifstream stat("/proc/" + to_string(pid) +"/schedstat");
     sched_stat res ={-1,-1,-1};
     if(stat.is_open()){
-
+//        string s;
+//        getline(stat, s);
+//        cout << "(" << s << ")";
+//        istringstream stream(s);
+        stat >> res;
         stat.close();
     }
     return res;
