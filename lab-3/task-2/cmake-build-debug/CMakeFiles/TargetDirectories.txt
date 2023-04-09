@@ -1,0 +1,3 @@
+/repositories/os-labs-linux/lab-3/task-2/cmake-build-debug/CMakeFiles/task_.dir
+/repositories/os-labs-linux/lab-3/task-2/cmake-build-debug/CMakeFiles/edit_cache.dir
+/repositories/os-labs-linux/lab-3/task-2/cmake-build-debug/CMakeFiles/rebuild_cache.dir

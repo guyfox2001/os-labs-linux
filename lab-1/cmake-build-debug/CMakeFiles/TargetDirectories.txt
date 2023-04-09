@@ -1,3 +1,3 @@
-/archive/repositories/lstu/os-labs-linux/lab-1/cmake-build-debug/CMakeFiles/lab_1.dir
-/archive/repositories/lstu/os-labs-linux/lab-1/cmake-build-debug/CMakeFiles/edit_cache.dir
-/archive/repositories/lstu/os-labs-linux/lab-1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/repositories/os-labs-linux/lab-1/cmake-build-debug/CMakeFiles/lab_1.dir
+/repositories/os-labs-linux/lab-1/cmake-build-debug/CMakeFiles/edit_cache.dir
+/repositories/os-labs-linux/lab-1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
